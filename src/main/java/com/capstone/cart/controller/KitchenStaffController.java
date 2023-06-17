@@ -1,5 +1,6 @@
 package com.capstone.cart.controller;
 
+import com.capstone.cart.Exception.CartnotFoundException;
 import com.capstone.cart.model.Cart;
 import com.capstone.cart.repository.CartRepository;
 import com.capstone.cart.service.KitchenStaffService;
@@ -23,7 +24,7 @@ public class KitchenStaffController {
         return ResponseEntity.ok(service.getAllOrdersbyRestuarentname(restName));
     }
     @PutMapping("/orders/{cartId}")
-    public ResponseEntity<?> updateStatus(@PathVariable Long cartId,@RequestBody Cart cart){
+    public ResponseEntity<?> updateStatus(@PathVariable Long cartId,@RequestBody Cart cart) throws CartnotFoundException {
         return ResponseEntity.ok(service.updateStatus(cartId,cart));
     }
 }
