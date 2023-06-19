@@ -15,24 +15,41 @@ public class KitchenStaffService {
     @Autowired
     private CartRepository cartRepository;
 
+    /**
+     * Retrieves all orders.
+     *
+     * @return the list of all Cart objects
+     */
     public List<Cart> getAllOrders() {
         return cartRepository.findAll();
     }
 
-    public Object updateStatus(Long cartId,Cart cart) throws CartnotFoundException {
-        Cart c=cartRepository.findById(cartId).orElse(null);
-        if(cart!=null){
+    /**
+     * Updates the status of an order by cartId.
+     *
+     * @param cartId the cartId of the order to update
+     * @param cart   the updated Cart object
+     * @return the updated Cart object
+     * @throws CartnotFoundException if the order with the specified cartId is not found
+     */
+    public Object updateStatus(Long cartId, Cart cart) throws CartnotFoundException {
+        Cart c = cartRepository.findById(cartId).orElse(null);
+        if (cart != null) {
             c.setStatus(cart.getStatus());
             cartRepository.save(c);
-        }
-        else {
+        } else {
             throw new CartnotFoundException("No orders yet");
         }
         return c;
     }
 
+    /**
+     * Retrieves all orders by restaurant name.
+     *
+     * @param restName the name of the restaurant
+     * @return the list of Cart objects for the specified restaurant name
+     */
     public List<Cart> getAllOrdersbyRestuarentname(String restName) {
-
-    return cartRepository.findAllByRestName(restName);
+        return cartRepository.findAllByRestName(restName);
     }
 }

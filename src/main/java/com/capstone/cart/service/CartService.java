@@ -18,52 +18,75 @@ public class CartService {
 
 	@Autowired
 	CartRepository cartRepo;
-	
+
+	/**
+	 * Retrieves a Cart by its cartId.
+	 *
+	 * @param cartId the cartId to search for
+	 * @return the Cart object if found, otherwise null
+	 */
 	@Transactional
 	public Cart getByCartId(Long cartId) {
-		Optional<Cart> cart= cartRepo.findById(cartId);
-		if(cart.isPresent())
+		Optional<Cart> cart = cartRepo.findById(cartId);
+		if (cart.isPresent())
 			return cart.get();
 		else
 			return null;
 	}
-	
+
+	/**
+	 * Retrieves a list of Carts by a userId.
+	 *
+	 * @param userId the userId to search for
+	 * @return the list of Cart objects if found, otherwise null
+	 */
 	@Transactional
-	public List<Cart> getByUserId(Long userId){
-		List<Cart> userCarts= cartRepo.findByUserid(userId);
-		if(userCarts != null)
+	public List<Cart> getByUserId(Long userId) {
+		List<Cart> userCarts = cartRepo.findByUserid(userId);
+		if (userCarts != null)
 			return userCarts;
 		else
 			return null;
 	}
-	
+
+	/**
+	 * Adds a new Cart.
+	 *
+	 * @param c the Cart object to be added
+	 * @return the saved Cart object
+	 */
 	@Transactional
 	public Cart addCart(Cart c) {
-			c.setStatus("In progress");
-			c.setQuantity(1l);
-			Cart saveCart= cartRepo.save(c);
-			System.out.println("added");
-			return saveCart;
+		c.setStatus("In progress");
+		c.setQuantity(1l);
+		Cart saveCart = cartRepo.save(c);
+		System.out.println("added");
+		return saveCart;
 	}
-	
+
+	/**
+	 * Deletes a Cart by its cartId and userId.
+	 *
+	 * @param cartId the cartId to delete
+	 * @param userId the userId to delete
+	 */
 	@Transactional
-//	public Boolean deleteCart(Long cId, Long uId) {
-//		Boolean delCart	=	cartRepo.deleteByCartidAndUserid(cId,uId);
-//		System.out.println("deleted");
-//		return delCart;
-//	}
-	 public void deleteCartByCartIdAndUserId(Long cartId, Long userId) {
+	public void deleteCartByCartIdAndUserId(Long cartId, Long userId) {
 		cartRepo.deleteByCartidAndUserid(cartId, userId);
 		System.out.println("deleted");
-    }
-	//emaill notification for kitchen staff that order is placed
+	}
+
 	@Autowired
 	private JavaMailSender mailSender;
 
-	public void sendSimpleEmail(String toEmail,
-								String subject,
-								String body
-	) {
+	/**
+	 * Sends a simple email using the provided details.
+	 *
+	 * @param toEmail  the recipient's email address
+	 * @param subject  the email subject
+	 * @param body     the email body
+	 */
+	public void sendSimpleEmail(String toEmail, String subject, String body) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("farmersust@gmail.com");
 		message.setTo(toEmail);
@@ -71,23 +94,32 @@ public class CartService {
 		message.setSubject(subject);
 		mailSender.send(message);
 		System.out.println("Mail Send...");
-
-
 	}
 
-
+	/**
+	 * Updates the quantity of a Cart by incrementing it by 1.
+	 *
+	 * @param cartid the cartId of the Cart to update
+	 * @return the updated Cart object
+	 */
 	public Cart iupdateQuantity(Long cartid) {
-		Cart c=cartRepo.findById(cartid).orElse(null);
-		c.setQuantity(c.getQuantity()+1);
+		Cart c = cartRepo.findById(cartid).orElse(null);
+		c.setQuantity(c.getQuantity() + 1);
 		cartRepo.save(c);
 		return c;
 	}
+
+	/**
+	 * Updates the quantity of a Cart by decrementing it by 1.
+	 *
+	 * @param cartid the cartId of the Cart to update
+	 * @return the updated Cart object
+	 */
 	public Cart dupdateQuantity(Long cartid) {
-		Cart c=cartRepo.findById(cartid).orElse(null);
-		c.setQuantity(c.getQuantity()-1);
+		Cart c = cartRepo.findById(cartid).orElse(null);
+		if(c.getQuantity()>0)
+		c.setQuantity(c.getQuantity() - 1);
 		cartRepo.save(c);
 		return c;
 	}
-
-
 }
