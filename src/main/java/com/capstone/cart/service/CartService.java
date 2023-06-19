@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.capstone.cart.model.Cart;
@@ -53,6 +55,24 @@ public class CartService {
 		cartRepo.deleteByCartidAndUserid(cartId, userId);
 		System.out.println("deleted");
     }
+	//emaill notification for kitchen staff that order is placed
+	@Autowired
+	private JavaMailSender mailSender;
+
+	public void sendSimpleEmail(String toEmail,
+								String subject,
+								String body
+	) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("farmersust@gmail.com");
+		message.setTo(toEmail);
+		message.setText(body);
+		message.setSubject(subject);
+		mailSender.send(message);
+		System.out.println("Mail Send...");
+
+
+	}
 		
 		
 	

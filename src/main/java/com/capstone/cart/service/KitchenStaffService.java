@@ -23,6 +23,7 @@ public class KitchenStaffService {
         Cart c=cartRepository.findById(cartId).orElse(null);
         if(cart!=null){
             c.setStatus(cart.getStatus());
+            cartRepository.save(c);
         }
         else {
             throw new CartnotFoundException("No orders yet");
