@@ -11,14 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/staff")
+@RequestMapping("/api/v1/staff")
 public class KitchenStaffController {
     @Autowired
     private KitchenStaffService service;
+
+    //to retrive all orders
     @GetMapping("/orders")
     public ResponseEntity<List<Cart>> getAllOrders(){
         return ResponseEntity.ok(service.getAllOrders());
     }
+
+    //get item by res
     @GetMapping("/ordersbyrestuarent/{restName}")
     public ResponseEntity<List<Cart>> getAllOrdersbyRestuarentname(@PathVariable String restName){
         return ResponseEntity.ok(service.getAllOrdersbyRestuarentname(restName));

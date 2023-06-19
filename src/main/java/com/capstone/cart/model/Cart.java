@@ -29,8 +29,10 @@ public class Cart {
 	private Long price;
 
 	private String status;
+    private Long quantity;
 
 	public Cart() {
+
 	}
 
 	public Long getCartid() {
@@ -89,7 +91,15 @@ public class Cart {
 		this.status = status;
 	}
 
-	public Cart(Long cartid, Long userid, String restName, Long prodid, String prodname, Long price, String status) {
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
+
+	public Cart(Long cartid, Long userid, String restName, Long prodid, String prodname, Long price, String status, Long quantity) {
 		this.cartid = cartid;
 		this.userid = userid;
 		this.restName = restName;
@@ -97,5 +107,6 @@ public class Cart {
 		this.prodname = prodname;
 		this.price = price;
 		this.status = status;
+		this.quantity = quantity;
 	}
 }

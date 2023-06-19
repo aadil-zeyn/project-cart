@@ -39,7 +39,8 @@ public class CartService {
 	
 	@Transactional
 	public Cart addCart(Cart c) {
-			c.setStatus("inprogress");
+			c.setStatus("In progress");
+			c.setQuantity(1l);
 			Cart saveCart= cartRepo.save(c);
 			System.out.println("added");
 			return saveCart;
@@ -73,7 +74,20 @@ public class CartService {
 
 
 	}
-		
-		
-	
+
+
+	public Cart iupdateQuantity(Long cartid) {
+		Cart c=cartRepo.findById(cartid).orElse(null);
+		c.setQuantity(c.getQuantity()+1);
+		cartRepo.save(c);
+		return c;
+	}
+	public Cart dupdateQuantity(Long cartid) {
+		Cart c=cartRepo.findById(cartid).orElse(null);
+		c.setQuantity(c.getQuantity()-1);
+		cartRepo.save(c);
+		return c;
+	}
+
+
 }

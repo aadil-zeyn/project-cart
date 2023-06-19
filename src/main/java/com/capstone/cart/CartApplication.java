@@ -17,12 +17,12 @@ public class CartApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CartApplication.class, args);
 	}
-	@EventListener(ApplicationReadyEvent.class)
-	public void triggerMail() throws MessagingException {
-		senderService.sendSimpleEmail("aadil.245268@gmail.com",
-				"This is email body",
-				"This is email subject");
-
-	}
+//	@EventListener(ApplicationReadyEvent.class)
+//	public void triggerMail() throws MessagingException {
+//		senderService.sendSimpleEmail("aadil.245268@gmail.com",
+//				"This is email body",
+//				"This is email subject");
+//
+//	}
 
 }
