@@ -41,8 +41,8 @@ public class CartService {
 	 * @return the list of Cart objects if found, otherwise null
 	 */
 	@Transactional
-	public List<Cart> getByUserId(Long userId) {
-		List<Cart> userCarts = cartRepo.findByUserid(userId);
+	public List<Cart> getByUserName(String userName) {
+		List<Cart> userCarts = cartRepo.findByUsername(userName);
 		if (userCarts != null)
 			return userCarts;
 		else
@@ -64,6 +64,8 @@ public class CartService {
 		return saveCart;
 	}
 
+
+
 	/**
 	 * Deletes a Cart by its cartId and userId.
 	 *
@@ -71,55 +73,55 @@ public class CartService {
 	 * @param userId the userId to delete
 	 */
 	@Transactional
-	public void deleteCartByCartIdAndUserId(Long cartId, Long userId) {
-		cartRepo.deleteByCartidAndUserid(cartId, userId);
+	public void deleteCartByCartIdAndUsername(Long cartId, String username) {
+		cartRepo.deleteByCartidAndUsername(cartId, username);
 		System.out.println("deleted");
 	}
-
-	@Autowired
-	private JavaMailSender mailSender;
-
-	/**
-	 * Sends a simple email using the provided details.
-	 *
-	 * @param toEmail  the recipient's email address
-	 * @param subject  the email subject
-	 * @param body     the email body
-	 */
-	public void sendSimpleEmail(String toEmail, String subject, String body) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("farmersust@gmail.com");
-		message.setTo(toEmail);
-		message.setText(body);
-		message.setSubject(subject);
-		mailSender.send(message);
-		System.out.println("Mail Send...");
-	}
-
-	/**
-	 * Updates the quantity of a Cart by incrementing it by 1.
-	 *
-	 * @param cartid the cartId of the Cart to update
-	 * @return the updated Cart object
-	 */
-	public Cart iupdateQuantity(Long cartid) {
-		Cart c = cartRepo.findById(cartid).orElse(null);
-		c.setQuantity(c.getQuantity() + 1);
-		cartRepo.save(c);
-		return c;
-	}
-
-	/**
-	 * Updates the quantity of a Cart by decrementing it by 1.
-	 *
-	 * @param cartid the cartId of the Cart to update
-	 * @return the updated Cart object
-	 */
-	public Cart dupdateQuantity(Long cartid) {
-		Cart c = cartRepo.findById(cartid).orElse(null);
-		if(c.getQuantity()>0)
-		c.setQuantity(c.getQuantity() - 1);
-		cartRepo.save(c);
-		return c;
-	}
+//
+//	@Autowired
+//	private JavaMailSender mailSender;
+//
+//	/**
+//	 * Sends a simple email using the provided details.
+//	 *
+//	 * @param toEmail  the recipient's email address
+//	 * @param subject  the email subject
+//	 * @param body     the email body
+//	 */
+//	public void sendSimpleEmail(String toEmail, String subject, String body) {
+//		SimpleMailMessage message = new SimpleMailMessage();
+//		message.setFrom("farmersust@gmail.com");
+//		message.setTo(toEmail);
+//		message.setText(body);
+//		message.setSubject(subject);
+//		mailSender.send(message);
+//		System.out.println("Mail Send...");
+//	}
+//
+//	/**
+//	 * Updates the quantity of a Cart by incrementing it by 1.
+//	 *
+//	 * @param cartid the cartId of the Cart to update
+//	 * @return the updated Cart object
+//	 */
+//	public Cart iupdateQuantity(Long cartid) {
+//		Cart c = cartRepo.findById(cartid).orElse(null);
+//		c.setQuantity(c.getQuantity() + 1);
+//		cartRepo.save(c);
+//		return c;
+//	}
+//
+//	/**
+//	 * Updates the quantity of a Cart by decrementing it by 1.
+//	 *
+//	 * @param cartid the cartId of the Cart to update
+//	 * @return the updated Cart object
+//	 */
+//	public Cart dupdateQuantity(Long cartid) {
+//		Cart c = cartRepo.findById(cartid).orElse(null);
+//		if(c.getQuantity()>0)
+//		c.setQuantity(c.getQuantity() - 1);
+//		cartRepo.save(c);
+//		return c;
+//	}
 }

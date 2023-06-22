@@ -16,9 +16,12 @@ public class Cart {
 	@Column(name = "cartid")
 	private Long cartid;
 	
-	@Column(name = "userid")
-	private Long userid;
+	@Column(name = "username")
+	private String username;
+	
+	@Column(name = "restName")
 	private String restName;
+	
 	@Column(name = "prodid")
 	private Long prodid;
 	
@@ -43,12 +46,12 @@ public class Cart {
 		this.cartid = cartid;
 	}
 
-	public Long getUserid() {
-		return userid;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
+	public void setUsername( String username) {
+		this.username = username;
 	}
 
 	public String getRestName() {
@@ -99,9 +102,9 @@ public class Cart {
 		this.quantity = quantity;
 	}
 
-	public Cart(Long cartid, Long userid, String restName, Long prodid, String prodname, Long price, String status, Long quantity) {
+	public Cart(Long cartid, String username, String restName, Long prodid, String prodname, Long price, String status, Long quantity) {
 		this.cartid = cartid;
-		this.userid = userid;
+		this.username = username;
 		this.restName = restName;
 		this.prodid = prodid;
 		this.prodname = prodname;

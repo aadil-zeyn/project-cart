@@ -29,9 +29,9 @@ public class  CartController {
 	}
 
 	//retrieve item by userid
-	@GetMapping("cart/viewByuser/{uId}")
-	public ResponseEntity<?> getDetailsByUserId(@PathVariable Long uId){
-		List<Cart> cList = cartServ.getByUserId(uId);
+	@GetMapping("cart/viewByuser/{username}")
+	public ResponseEntity<?> getDetailsByUserName(@PathVariable String username){
+		List<Cart> cList = cartServ.getByUserName(username);
 		if(cList != null)
 			return new ResponseEntity<List<Cart>>(cList, HttpStatus.OK);
 		else
@@ -53,22 +53,25 @@ public class  CartController {
 //		return new ResponseEntity<Boolean>(cartRes, HttpStatus.OK);
 //	}
 	//to delete an item in cart
-	@DeleteMapping("cart/del/{cartId}/{userId}")
-    public ResponseEntity<String> deleteCart(@PathVariable Long cartId, @PathVariable Long userId) {
-		cartServ.deleteCartByCartIdAndUserId(cartId, userId);
+	
+	
+	//-------------------------
+	@DeleteMapping("cart/del/{cartId}/{username}")
+    public ResponseEntity<String> deleteCart(@PathVariable Long cartId, @PathVariable String username) {
+		cartServ.deleteCartByCartIdAndUsername(cartId, username);
         return ResponseEntity.ok("Cart deleted successfully.");
     }
 
-	//to increment the quantity of items in cart
-	@PutMapping("cart/incrementUpdateqQuantity/{cartid}")
-	public ResponseEntity<Cart> iupdateQuantity(@PathVariable Long cartid){
-		return ResponseEntity.ok(cartServ.iupdateQuantity(cartid));
-	}
-	//to decrement the quantity of items in cart
-	@PutMapping("cart/decrementUpdateQuantity/{cartid}")
-	public ResponseEntity<Cart> dupdateQuantity(@PathVariable Long cartid){
-		return ResponseEntity.ok(cartServ.dupdateQuantity(cartid));
-	}
+//	//to increment the quantity of items in cart
+//	@PutMapping("cart/incrementUpdateqQuantity/{cartid}")
+//	public ResponseEntity<Cart> iupdateQuantity(@PathVariable Long cartid){
+//		return ResponseEntity.ok(cartServ.iupdateQuantity(cartid));
+//	}
+//	//to decrement the quantity of items in cart
+//	@PutMapping("cart/decrementUpdateQuantity/{cartid}")
+//	public ResponseEntity<Cart> dupdateQuantity(@PathVariable Long cartid){
+//		return ResponseEntity.ok(cartServ.dupdateQuantity(cartid));
+//	}
 
 
 }
